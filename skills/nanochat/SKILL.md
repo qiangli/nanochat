@@ -3,6 +3,8 @@ name: nanochat
 description: Run nanochat training or start the web server for chat on Mac Studio Ultra
 ---
 
+> **Need Help?** If training fails with NaN losses or crashes during evaluation, check the **debug** skill for detailed troubleshooting steps.
+
 You need to train a nanochat model or start the web server for chatting. Use this skill after the one-time 'setup' skill has been completed.
 
 ## Quick Start

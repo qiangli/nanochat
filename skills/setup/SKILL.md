@@ -3,6 +3,8 @@ name: setup
 description: One-time setup for nanochat on Mac Studio Ultra (installs uv, clones repo, sets up environment)
 ---
 
+> **Note:** If you encounter NaN losses during training, see the **debug** skill for troubleshooting.
+
 You need to set up nanochat on a Mac Studio Ultra from scratch. This is a one-time setup that installs required tools, clones the repository, and prepares the environment.
 
 ## When to Use This Skill

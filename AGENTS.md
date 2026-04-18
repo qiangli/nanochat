@@ -120,4 +120,4 @@ For Mac Studio Ultra (M1/M2/M3) deployment, use the skills:
 2. **`train` skill**: Train models - explains datasets, options, time estimates, expected results
 3. **`nanochat` skill**: Run training scripts or start web server
 
-See `skills/setup/SKILL.md`, `skills/train/SKILL.md` and `skills/nanochat/SKILL.md` for detailed instructions.
+See `skills/setup/SKILL.md`, `skills/train/SKILL.md`, `skills/nanochat/SKILL.md` and `skills/debug/SKILL.md` for detailed instructions.
