@@ -254,16 +254,36 @@ def sft_data_generator_bos_bestfit(split, buffer_size=100):
                     # No conversation fits - pad the remainder instead of cropping
                     # This ensures we never discard any tokens
                     content_len = len(row)
-                    row.extend([bos_token] * remaining)  # Pad with BOS tokens
-                    mask_row.extend([0] * remaining)
+                    
+                    # FIX: If row is empty (no content yet), force a conversation by taking smallest available
+                    if content_len == 0 and len(conv_buffer) > 0:
+                        # Take the smallest conversation even if it does not fit perfectly
+                        smallest_idx = min(range(len(conv_buffer)), key=lambda i: len(conv_buffer[i][0]))
+                        conv, conv_mask = conv_buffer.pop(smallest_idx)
+                        # Truncate if necessary (better than padding entire row with BOS)
+                        conv = conv[:row_capacity]
+                        conv_mask = conv_mask[:row_capacity]
+                        row.extend(conv)
+                        mask_row.extend(conv_mask)
+                        consumed += ddp_world_size
+                        content_len = len(row)
+                    else:
+                        # Normal padding
+                        row.extend([bos_token] * remaining)  # Pad with BOS tokens
+                        mask_row.extend([0] * remaining)
+                    
                     padded = True
                     break  # Row is now full (with padding)
 
             # Track content length: full row if no padding, otherwise the length before padding
-            if padded:
-                row_lengths.append(content_len)
-            else:
-                row_lengths.append(row_capacity)
+            # FIX: Ensure content_len is at least 1 to avoid masking everything
+            actual_content_len = content_len if padded else row_capacity
+            if actual_content_len == 0:
+                # If somehow we have no content, count non-BOS tokens as content
+                actual_content_len = sum(1 for t in row if t != bos_token)
+                if actual_content_len == 0:
+                    actual_content_len = 1  # Force at least 1 token to prevent NaN
+            row_lengths.append(actual_content_len)
             rows.append(row[:row_capacity])
             mask_rows.append(mask_row[:row_capacity])
 
