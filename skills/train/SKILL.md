@@ -3,6 +3,8 @@ name: train
 description: Train nanochat models on Mac Studio Ultra - covers datasets, training options, time estimates, and expected results
 ---
 
+> **Goal:** Build full GPT-2 grade models (depth=24), not demo models. The pipeline is designed for training from scratch.
+>
 > **Troubleshooting:** If you encounter `loss: nan` during SFT training, see the **debug** skill for the solution. This is a known dataloader bug with a documented fix.
 
 You need to train a nanochat model. This skill explains what training is required, what datasets are used, how long it takes, and what results to expect.

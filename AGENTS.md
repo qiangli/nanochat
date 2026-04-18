@@ -1,6 +1,8 @@
 # nanochat AGENTS.md
 
-Minimal LLM training harness by Andrej Karpathy. Goal: Train GPT-2 grade model for <$100 on 8xH100.
+**BUILD AND TRAIN** LLMs from scratch. This is a training harness by Andrej Karpathy - not a demo, but a complete pipeline for building GPT-2 grade models.
+
+**Goal:** Train GPT-2 grade model for <$100 on 8xH100, or build on your own hardware (Mac Studio, etc.).
 
 ## Quick Start
 
